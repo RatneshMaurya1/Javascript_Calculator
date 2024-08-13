@@ -12,6 +12,7 @@ function updatedInput(){
 
 button.forEach((button) => {
     button.addEventListener("click", () => {
+
         currentInput += button.textContent
         updatedInput()
     });
@@ -26,10 +27,13 @@ resetButton.addEventListener("click", () => {
     currentInput = ""
     updatedInput()
 })
-
+function preExpression(expr){
+    return expr.replace(/\b0+(\d)/g, '$1');
+}
 equalButton.addEventListener("click", () => {
     try {
-        const result = eval(currentInput)
+        const expression = preExpression(currentInput)
+        const result = eval(expression)
         currentInput = result.toString()
         updatedInput()
     } catch (error) {
